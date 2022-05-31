@@ -1,0 +1,15 @@
+<div class="card m-2" style="width: 30%;">
+    <img [src]="prd?.ImgURL" class="card-img-top" [alt]="prd?.Name">
+    <div class="card-body">
+        <h5 class="card-title text-center">{{prd?.Name}}</h5>
+        <div class="card-text">
+            <p class="card-text">Price: {{prd?.Price}}</p>
+            <p class="card-text">Available Quantity :{{prd?.Quantity}}</p>
+        </div>
+        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+            <button [disabled]="prodDetails == prdIDs[0]" type="button" class="btn btn-danger" (click)="prev()">Previous</button>
+            <a name="" id="" class="btn btn-warning" role="button" (click)="goBack()">Back to Products</a>
+            <button [disabled]="prodDetails == prdIDs[prdIDs.length -1]"  type="button" class="btn btn-success" (click)="next()">Next</button>
+        </div>
+    </div>
+</div>

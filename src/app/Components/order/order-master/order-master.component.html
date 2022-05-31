@@ -1,0 +1,21 @@
+<h3>Create Your Order</h3>
+<div class="mb-3">
+    <label for="cate" class="form-label">Category:</label>
+    <!-- <select class="form-control" #cate id="cate" (change)="getSelectedCate(cate.value)"> -->
+    <select class="form-control" #cate [(ngModel)]="selectedID">
+        <option value="0" selected>All</option>
+        <option *ngFor="let cate of cateList" [value]="cate.id">{{cate.Name}}</option>
+    </select>
+    <div class="input-group mb-3 mt-3">
+        <input [(ngModel)]="selectedMaxPrice" type="number" class="form-control" placeholder="Max Price" aria-label="Recipient's username"
+            aria-describedby="button-addon2">
+    </div>
+</div>
+
+<div class="bg-warning">
+    <app-product-list [maxPrice]="selectedMaxPrice" [sentCateID]="selectedID" (totalPriceChanged)="onTotalPriceChanged($event)">
+    </app-product-list>
+</div>
+<hr>
+<input #viewChildTest type="text"class="form-control" placeholder="Your Name">
+<h4>Order Total Price: {{orderTotalPrice}}</h4>

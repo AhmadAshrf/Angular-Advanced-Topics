@@ -1,0 +1,77 @@
+<!-- <div class="mb-3">
+    <label for="cate" class="form-label">Category:</label>
+    <select class="form-control" #cate id="cate" (change)="getSelectedCate(cate.value)">
+    <select class="form-control" #cate [(ngModel)]="selectedID" (change)="filterProdByID()">
+        <option value="0" selected>All</option>
+        <option *ngFor="let cate of cateList" [value]="cate.id">{{cate.name}}</option>
+    </select>
+</div> -->
+
+<!-- <div class="text-secondary">
+    For Test {{selectedID}}
+    <button (click)="changeCate()" type="button" class="btn btn-primary">
+        Change Category
+    </button>
+    <br>
+    Order Date : {{orderDate | date}}
+</div> -->
+
+
+<a name="" id="" class="btn btn-secondary role="button [routerLink]="['/Product/add']">Add Product</a>
+<hr>
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Image</th>
+            <th>Av. Quantity</th>
+            <th>Price In USD</th>
+            <th>Price In EGP</th>
+            <th>Count</th>
+            <th>Details</th>
+            <th>Add</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- <tr *ngFor="let prod of productList; index as i; trackBy:prodTrackByID" 
+            [class.d-none]="selectedID != prod.cateID" 
+            [class.bg-warning]="prod.quantity == 0" 
+            [style.background-color]="(prod.quantity == 0)? 'yellow' : 'lightgray'"> -->
+
+        <!-- <ng-container *ngFor="let prod of productList; index as i; trackBy:prodTrackByID;"> -->
+            <!-- safe navigation operator -->
+            <!-- <tr *ngIf="prod.quantity != 0"> -->
+            <tr *ngFor="let prod of productListofCategory; index as i; 
+                trackBy:prodTrackByID;" 
+                [ngClass]="{'bg-warning':prod.Quantity == 0, 'text-primary' :prod.Quantity == 0}">  
+                
+                <td>{{i+1}}</td>
+                <td>{{prod?.Name}}</td>
+                <td><img LightBox="red" highlightColor="green" [src]="prod?.ImgURL" alt=""></td>
+                <!--Custom Directive-->
+                <td>
+                    <!-- <div *ngIf="prod.quantity != 0">{{prod?.quantity}}</div>
+                    <div *ngIf="prod.quantity == 0">Out Of Stock</div> -->
+                    <!-- <div *ngIf="prod.quantity != 0; else outOfStock">{{prod?.quantity}}</div>
+                    <ng-template #outOfStock>Out Of Stock</ng-template> -->
+                    <ng-container [ngSwitch]="prod.Quantity">
+                        <ng-container *ngSwitchCase="0">Out Of Stock</ng-container>
+                        <ng-container *ngSwitchCase="1">Last Item</ng-container>
+                        <ng-container *ngSwitchCase="2">Last 2 Items</ng-container>
+                        <ng-container *ngSwitchDefault>{{prod.Quantity}}</ng-container>
+                    </ng-container>
+                </td>
+                <td>{{prod?.Price | currency : 'EUR' : 'symbol'}}</td>
+                <td>{{prod.Price | USDtoEGP | currency : 'EGP'}}</td>
+
+                <td><input [disabled]="prod.Quantity == 0" #itemsCount type="number" class="form-control"></td>
+                <td>
+                    <button class="btn btn-secondary" (click)="prodDetails(prod.id)">Details</button>
+                </td>
+                <td><button [disabled]="prod.Quantity == 0" class="btn btn-primary"
+                        (click)="buy(prod.Price, itemsCount.value)">Add to Cart</button>
+                </td>
+            </tr>
+    </tbody>
+</table>

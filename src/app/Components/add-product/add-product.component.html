@@ -1,0 +1,39 @@
+<!-- <a name="" id="liveToastBtn" class="btn btn-primary role=" button (click)="addProduct()">Save</a> -->
+
+<div class="alert alert-warning">
+    Data You Entered :
+    {{newProduct | json}}
+</div>
+<hr>
+<form (ngSubmit)="addProduct()">
+    <div class="mb-3">
+      <label for="pName" class="form-label">Product Name</label>
+      <input type="text" class="form-control" name="pname" id="pName" [(ngModel)]="newProduct.Name">
+    </div>
+
+    <div class="mb-3">
+        <label for="pPrice" class="form-label">Product Price</label>
+        <input type="number" class="form-control" name="pprice" id="pPrice" [(ngModel)]="newProduct.Price">
+    </div>
+
+    <div class="mb-3">
+        <label for="pQuantity" class="form-label">Product Quantity</label>
+        <input type="number" class="form-control" name="pquantity" id="pQuantity" [(ngModel)]="newProduct.Quantity">
+    </div>
+
+    <div class="mb-3">
+        <label for="pCate" class="form-label">Product Category</label>
+        <select class="form-select" name="cate" id="pCate" [(ngModel)]="newProduct.CategoryID">
+            <!-- <option value="0" selected>All</option> -->
+            <option *ngFor="let cate of cateList" [value]="cate.id">{{cate.Name}}</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="pImage" class="form-label">Product Image</label>
+        <input type="file" class="form-control" name="pimage" id="pImage" [(ngModel)]="newProduct.ImgURL">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Product</button>
+  </form>
+
